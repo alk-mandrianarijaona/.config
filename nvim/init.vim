@@ -602,5 +602,4 @@ else
   let g:airline_symbols.linenr = ''
 endif
 
-# 
 let g:python3_host_prog = '/Users/mika/.pyenv/versions/3.5.10/bin/python'
