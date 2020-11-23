@@ -171,7 +171,6 @@ set mousemodel=popup
 set t_Co=256
 set guioptions=egmrti
 set gfn=Monospace\ 10
-set conceallevel=0
 
 if has("gui_running")
   if has("gui_mac") || has("gui_macvim")
@@ -190,6 +189,7 @@ else
   
 endif
 
+set conceallevel=0
 
 
 "" Disable the blinking cursor.
