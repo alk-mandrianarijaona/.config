@@ -57,6 +57,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc-tsserver'
 Plug 'neoclide/coc-eslint'
 Plug 'neoclide/coc-json'
+Plug 'neoclide/coc-prettier'
 
 if isdirectory('/usr/local/opt/fzf')
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
@@ -95,6 +96,7 @@ Plug 'jelera/vim-javascript-syntax'
 " python
 "" Python Bundle
 Plug 'davidhalter/jedi-vim'
+Plug 'nvie/vim-flake8'
 Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
 
 
@@ -154,6 +156,7 @@ if exists('$SHELL')
 else
     set shell=/bin/sh
 endif
+set shellcmdflag=-ci
 
 " session management
 let g:session_directory = "~/.config/nvim/session"
@@ -331,6 +334,7 @@ noremap <Leader>v :<C-u>vsplit<CR>
 noremap <Leader>ga :Gwrite<CR>
 noremap <Leader>gc :Gcommit<CR>
 noremap <Leader>gsh :Gpush<CR>
+noremap <Leader>gsu :!gpsup<CR>
 noremap <Leader>gll :Gpull<CR>
 noremap <Leader>gs :Gstatus<CR>
 noremap <Leader>gb :Gblame<CR>
@@ -531,7 +535,7 @@ augroup END
 augroup vimrc-python
   autocmd!
   autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=8 colorcolumn=79
-      \ formatoptions+=croq softtabstop=4
+      \ formatoptions+=croqt formatoptions-=l softtabstop=4
       \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 augroup END
 
@@ -612,4 +616,7 @@ endif
 
 let g:python3_host_prog = '/Users/mika/.pyenv/versions/3.5.10/bin/python'
 
-
+" COC
+command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
+vmap <leader>F  <Plug>(coc-format-selected)
+nmap <leader>F  <Plug>(coc-format-selected)
