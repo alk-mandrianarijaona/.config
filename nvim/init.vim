@@ -58,6 +58,7 @@ Plug 'neoclide/coc-tsserver'
 Plug 'neoclide/coc-eslint'
 Plug 'neoclide/coc-json'
 Plug 'neoclide/coc-prettier'
+Plug 'lifepillar/vim-solarized8'
 
 if isdirectory('/usr/local/opt/fzf')
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
@@ -104,6 +105,11 @@ Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
 Plug 'leafgarland/typescript-vim'
 Plug 'HerringtonDarkholme/yats.vim'
 
+" rust
+Plug 'rust-lang/rust.vim'
+
+" swift
+Plug 'apple/swift'
 
 "*****************************************************************************
 "*****************************************************************************
@@ -156,7 +162,7 @@ if exists('$SHELL')
 else
     set shell=/bin/sh
 endif
-set shellcmdflag=-ci
+" set shellcmdflag=-ci
 
 " session management
 let g:session_directory = "~/.config/nvim/session"
@@ -172,8 +178,9 @@ set ruler
 set relativenumber
 
 let no_buffers_menu=1
-colorscheme codedark
-
+set termguicolors
+colorscheme solarized8
+set background=light
 
 set mousemodel=popup
 set t_Co=256
@@ -614,9 +621,11 @@ else
   let g:airline_symbols.linenr = ''
 endif
 
-let g:python3_host_prog = '/Users/mika/.pyenv/versions/3.5.10/bin/python'
+" let g:python3_host_prog = '/Users/mika/.pyenv/versions/3.5.10/bin/python'
 
 " COC
+let g:coc_global_extensions = [ 'coc-json', 'coc-git', 'coc-jedi', 'coc-tsserver', 'coc-eslint', 'coc-json', 'coc-prettier' ]
+let g:coc_disable_transparent_cursor = 1
 command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
 vmap <leader>F  <Plug>(coc-format-selected)
 nmap <leader>F  <Plug>(coc-format-selected)
