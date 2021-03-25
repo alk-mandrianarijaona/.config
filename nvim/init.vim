@@ -54,10 +54,6 @@ Plug 'tomasiser/vim-code-dark'
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-surround'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'neoclide/coc-tsserver'
-Plug 'neoclide/coc-eslint'
-Plug 'neoclide/coc-json'
-Plug 'neoclide/coc-prettier'
 Plug 'lifepillar/vim-solarized8'
 
 if isdirectory('/usr/local/opt/fzf')
@@ -274,7 +270,7 @@ nnoremap <silent> <F3> :NERDTreeToggle<CR>
 
 " grep.vim
 nnoremap <silent> <leader>f :Rgrep<CR>
-let Grep_Default_Options = '-IR'
+let Grep_Default_Options = '-ir'
 let Grep_Skip_Files = '*.log *.db'
 let Grep_Skip_Dirs = '.git node_modules'
 
@@ -626,6 +622,22 @@ endif
 " COC
 let g:coc_global_extensions = [ 'coc-json', 'coc-git', 'coc-jedi', 'coc-tsserver', 'coc-eslint', 'coc-json', 'coc-prettier' ]
 let g:coc_disable_transparent_cursor = 1
-command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 vmap <leader>F  <Plug>(coc-format-selected)
 nmap <leader>F  <Plug>(coc-format-selected)
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+let g:coc_node_args = ['--nolazy', '--inspect-brk=6045']
