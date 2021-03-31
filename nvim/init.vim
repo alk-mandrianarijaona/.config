@@ -176,7 +176,7 @@ set relativenumber
 
 let no_buffers_menu=1
 set termguicolors
-colorscheme solarized8
+colorscheme solarized8_flat
 set background=light
 
 set mousemodel=popup
@@ -621,7 +621,7 @@ endif
 " let g:python3_host_prog = '/Users/mika/.pyenv/versions/3.5.10/bin/python'
 
 " COC
-let g:coc_global_extensions = [ 'coc-json', 'coc-git', 'coc-jedi', 'coc-tsserver', 'coc-eslint', 'coc-json', 'coc-prettier' ]
+let g:coc_global_extensions = [ 'coc-json', 'coc-git', 'coc-jedi', 'coc-tsserver', 'coc-eslint', 'coc-json', 'coc-prettier', 'coc-jest' ]
 let g:coc_disable_transparent_cursor = 1
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -641,3 +641,7 @@ function! s:show_documentation()
     execute '!' . &keywordprg . " " . expand('<cword>')
   endif
 endfunction
+
+" Vimspector
+let g:vimspector_enable_mappings = 'HUMAN'
+
