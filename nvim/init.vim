@@ -12,7 +12,6 @@ endif
 
 let g:vim_bootstrap_langs = "go,javascript,python,typescript"
 let g:vim_bootstrap_editor = "nvim"				" nvim or vim
-let g:vim_bootstrap_theme = "codedark"
 let g:vim_bootstrap_frams = ""
 
 if !filereadable(vimplug_exists)
@@ -50,12 +49,13 @@ Plug 'Yggdroot/indentLine'
 Plug 'elzr/vim-json'
 Plug 'editor-bootstrap/vim-bootstrap-updater'
 Plug 'tpope/vim-rhubarb' " required by fugitive to :Gbrowse
-Plug 'tomasiser/vim-code-dark'
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-surround'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'lifepillar/vim-solarized8'
 Plug 'puremourning/vimspector'
+Plug 'tomasr/molokai'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
 if isdirectory('/usr/local/opt/fzf')
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
@@ -89,7 +89,7 @@ Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
 " javascript
 "" Javascript Bundle
 Plug 'jelera/vim-javascript-syntax'
-
+Plug 'pantharshit00/vim-prisma'
 
 " python
 "" Python Bundle
@@ -176,8 +176,7 @@ set relativenumber
 
 let no_buffers_menu=1
 set termguicolors
-colorscheme solarized8_flat
-set background=light
+colorscheme ThemerVim
 
 set mousemodel=popup
 set t_Co=256
@@ -223,16 +222,16 @@ set title
 set titleold="Terminal"
 set titlestring=%F
 
-set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
+" set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 
 " Search mappings: These will make it so that going to the next one in a
 " search will center on the line it's found in.
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
-if exists("*fugitive#statusline")
-  set statusline+=%{fugitive#statusline()}
-endif
+" if exists("*fugitive#statusline")
+"   set statusline+=%{fugitive#statusline()}
+" endif
 
 " vim-airline
 let g:airline_theme = 'powerlineish'
@@ -586,7 +585,7 @@ endif
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
-
+let g:airline_powerline_fonts = 1
 if !exists('g:airline_powerline_fonts')
   let g:airline#extensions#tabline#left_sep = ' '
   let g:airline#extensions#tabline#left_alt_sep = '|'
@@ -621,14 +620,14 @@ endif
 " let g:python3_host_prog = '/Users/mika/.pyenv/versions/3.5.10/bin/python'
 
 " COC
-let g:coc_global_extensions = [ 'coc-json', 'coc-git', 'coc-jedi', 'coc-tsserver', 'coc-eslint', 'coc-json', 'coc-prettier', 'coc-jest' ]
+let g:coc_global_extensions = [ 'coc-json', 'coc-git', 'coc-jedi', 'coc-tsserver', 'coc-eslint', 'coc-json', 'coc-prettier', 'coc-vetur', 'coc-pairs']
 let g:coc_disable_transparent_cursor = 1
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-vmap <leader>F  <Plug>(coc-format-selected)
-nmap <leader>F  <Plug>(coc-format-selected)
+vmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
