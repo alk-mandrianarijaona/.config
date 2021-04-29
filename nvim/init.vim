@@ -56,6 +56,7 @@ Plug 'lifepillar/vim-solarized8'
 Plug 'puremourning/vimspector'
 Plug 'tomasr/molokai'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+Plug 'vim-test/vim-test'
 
 if isdirectory('/usr/local/opt/fzf')
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
@@ -96,7 +97,6 @@ Plug 'pantharshit00/vim-prisma'
 Plug 'davidhalter/jedi-vim'
 Plug 'nvie/vim-flake8'
 Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
-
 
 " typescript
 Plug 'leafgarland/typescript-vim'
@@ -384,7 +384,8 @@ endif
 
 cnoremap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 nnoremap <silent> <leader>b :Buffers<CR>
-nnoremap <silent> <leader>e :FZF -m<CR>
+nnoremap <silent> <leader>e :FZF -m<CR> 
+" ctrl-c & ctrl-v to split
 "Recovery commands from history through FZF
 nmap <leader>y :History:<CR>
 
@@ -396,6 +397,9 @@ let g:UltiSnipsEditSplit="vertical"
 
 " ale
 let g:ale_linters = {}
+:call extend(g:ale_linters, {
+    \"go": ['golint', 'go vet'], })
+
 
 " Tagbar
 nmap <silent> <F4> :TagbarToggle<CR>
@@ -518,11 +522,6 @@ augroup go
 
 augroup END
 
-" ale
-:call extend(g:ale_linters, {
-    \"go": ['golint', 'go vet'], })
-
-
 " javascript
 let g:javascript_enable_domhtmlcss = 1
 
@@ -553,21 +552,14 @@ let g:jedi#show_call_signatures = "0"
 let g:jedi#completions_command = "<C-Space>"
 let g:jedi#smart_auto_mappings = 0
 
-" ale
-:call extend(g:ale_linters, {
-    \'python': ['flake8'], })
-
 " vim-airline
 let g:airline#extensions#virtualenv#enabled = 1
 
 " Syntax highlight
 let python_highlight_all = 1
 
-
 " typescript
 let g:yats_host_keyword = 1
-
-
 
 "*****************************************************************************
 "*****************************************************************************
@@ -617,10 +609,8 @@ else
   let g:airline_symbols.linenr = ''
 endif
 
-" let g:python3_host_prog = '/Users/mika/.pyenv/versions/3.5.10/bin/python'
-
 " COC
-let g:coc_global_extensions = [ 'coc-json', 'coc-git', 'coc-jedi', 'coc-tsserver', 'coc-eslint', 'coc-json', 'coc-prettier', 'coc-vetur', 'coc-pairs']
+let g:coc_global_extensions = [ 'coc-json', 'coc-git', 'coc-jedi', 'coc-tsserver', 'coc-eslint', 'coc-json', 'coc-prettier', 'coc-vetur', 'coc-pairs', 'coc-python']
 let g:coc_disable_transparent_cursor = 1
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -643,4 +633,18 @@ endfunction
 
 " Vimspector
 let g:vimspector_enable_mappings = 'HUMAN'
+let g:vimspector_install_gadgets = [ 'debugpy', 'debugger-for-chrome' ]
 
+" vim-test
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
+let test#strategy = "neovim"
+
+"-- FOLDING --  
+set foldmethod=syntax "syntax highlighting items specify folds  
+set foldcolumn=1 "defines 1 col at window left, to indicate folding  
+let javaScript_fold=1 "activate folding by JS syntax  
+set foldlevelstart=99 "start file with all folds opened
