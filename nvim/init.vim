@@ -339,7 +339,7 @@ noremap <Leader>gc :Git commit<CR>
 noremap <Leader>gsh :Git push<CR>
 noremap <Leader>gsu :!gpsup<CR>
 noremap <Leader>gll :Git pull<CR>
-noremap <Leader>gs :Git status<CR>
+noremap <Leader>gs :Git<CR>
 noremap <Leader>gb :Git blame<CR>
 noremap <Leader>gd :Gvdiff<CR>
 noremap <Leader>gr :Gremove<CR>
