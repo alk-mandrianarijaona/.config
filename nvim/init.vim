@@ -57,6 +57,7 @@ Plug 'puremourning/vimspector'
 Plug 'tomasr/molokai'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'vim-test/vim-test'
+Plug 'danro/rename.vim'
 
 if isdirectory('/usr/local/opt/fzf')
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
@@ -137,7 +138,7 @@ set backspace=indent,eol,start
 "" Tabs. May be overridden by autocmd rules
 set tabstop=2
 set softtabstop=0
-set shiftwidth=2
+set shiftwidth=0
 set expandtab
 
 "" Map leader to ,
@@ -528,9 +529,8 @@ let g:javascript_enable_domhtmlcss = 1
 " vim-javascript
 augroup vimrc-javascript
   autocmd!
-  autocmd FileType javascript setl tabstop=4|setl shiftwidth=4|setl expandtab softtabstop=4
+  autocmd FileType javascript setl tabstop=2|setl shiftwidth=2|setl expandtab softtabstop=2
 augroup END
-
 
 " python
 " vim-python
@@ -619,6 +619,8 @@ nmap <silent> gr <Plug>(coc-references)
 vmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>ca <Plug>(coc-codeaction)
+
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
@@ -642,7 +644,15 @@ nmap <silent> t<C-f> :TestFile<CR>
 nmap <silent> t<C-s> :TestSuite<CR>
 nmap <silent> t<C-l> :TestLast<CR>
 nmap <silent> t<C-g> :TestVisit<CR>
+if has('nvim')
+  tmap <C-o> <C-\><C-n>
+endif
 let test#strategy = "neovim"
+function! JestStrategy(cmd)
+  let testName = matchlist(a:cmd, '\v -t ''(.*)''')[1]
+  call vimspector#LaunchWithSettings( #{ configuration: 'jest', TestName: testName } )
+endfunction
+let g:test#custom_strategies = {'jest': function('JestStrategy')}
 
 "-- FOLDING --  
 set foldmethod=syntax "syntax highlighting items specify folds  
